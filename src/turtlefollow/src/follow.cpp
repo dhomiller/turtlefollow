@@ -59,7 +59,7 @@ class Follow : public rclcpp::Node
       float linear_vel;
       
       if(mode=="FOLLOW") {
-        angular_vel = tan((theta-ai_location.theta)/2)*3; //turn toward target
+        angular_vel = tan((theta-ai_location.theta)/2)*5; //turn toward target
         linear_vel = dist-0.4 < 0 ? 0 : (dist-0.4)*cos(theta-ai_location.theta);
       }
       else if(mode=="RUN") {
@@ -71,6 +71,13 @@ class Follow : public rclcpp::Node
         linear_vel = 0;
       }
     
+      //limit angular and linear velocity
+      if(fabs(angular_vel) > 5.0) {
+        angular_vel = angular_vel / fabs(angular_vel) * 5.0;
+      }
+      if(fabs(linear_vel) > 5.0) {
+        linear_vel = linear_vel / fabs(linear_vel) * 5.0;
+      }
       
       
       
