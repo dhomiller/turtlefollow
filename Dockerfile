@@ -14,12 +14,12 @@ RUN apt update && \
     rm -rf /var/lib/apt/lists/*
 
 # Add source files
-ADD     src/turtlefollow /ros2
-WORKDIR /ros2
+ADD     src/turtlefollow /turtlefollow
+WORKDIR /turtlefollow
 
 # Build turtlefollow
 RUN bash -c 'source /opt/ros/humble/setup.bash; colcon build'
 
 # Source setup file for bash
-RUN     echo . /ros2/install/setup.bash >> /root/.bashrc
+RUN     echo . /turtlefollow/install/setup.bash >> /root/.bashrc
 CMD ["bash"]
